@@ -42,12 +42,12 @@ async function dropTableByName(tableName) {
 
 async function createProcedure(connection) {
   
-  const pp = QueriesStoreProcedure.create_procedure
+  const query_procedure = QueriesStoreProcedure.create_procedure
   .replace("<procedureName>", "move_inactive_hero_to_hospital")
   .replace("<command>", QueriesDB.command_create);
 
   
-  connection.query(pp, (error, results, fields) => {
+  connection.query(query_procedure, (error, results, fields) => {
     if (error) throw error.sqlMessage;
     console.log('Stored procedure created successfully');
   });
