@@ -23,22 +23,6 @@ exports.getAll = async(req, res)=>{
         refTableKey: "weapons.id"
     }
 
-//     const tableName = "heroes";
-//     const ReftableName = "weapons";
-//     const SELECT = `
-// heroes.id as heroe_id,
-// heroes.create_at as heroe_create_at,
-// first_name,
-// last_name,
-// heroes.type as heroe_type,
-// active,
-// weapons.id as weapon_id,
-// weapons.name as weapon_name,
-// weapons.color as weapon_color,
-// weapons.material as weapon_matireial,
-// weapons.img_src as weapon_src
-//     `;
-//     const tableKey = {myTableKey: "heroes.weapon_id", refTableKey: "weapons.id"};
 try {
     const data = await CRUD.findAll(options);
     res.status(200).send(data);
