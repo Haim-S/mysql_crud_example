@@ -35,25 +35,34 @@ const placeholders = Schema.map(column => {
 
 
 
-async function dropTableByName(tableName) {
-    const dropTableQuery = `drop table ${tableName}`
-    return runQuery(dropTableQuery);
-}
-
 async function createProcedure(connection) {
   
   const query_procedure = QueriesStoreProcedure.create_procedure
   .replace("<procedureName>", "move_inactive_hero_to_hospital")
   .replace("<command>", QueriesDB.command_create);
-
+  
   
   connection.query(query_procedure, (error, results, fields) => {
     if (error) throw error.sqlMessage;
     console.log('Stored procedure created successfully');
   });
- 
+  
+}
+
+async function alterTable(connection) {
+  const query = QueriesDB.command_alter
+  .replace("<table_name>", "heroes")
+  .replace("<column_type>", "active")
+  connection.query(query, (error, results, fields) => {
+    if (error) return console.log("OK, ALTER TABLE created");
+    console.log('ALTER TABLE created successfully');
+  });
+}
+
+async function dropTableByName(tableName) {
+    const dropTableQuery = `drop table ${tableName}`
+    return runQuery(dropTableQuery);
 }
 
 
-
-module.exports = { createTable, dropTableByName, createProcedure};
+module.exports = { createTable, dropTableByName, createProcedure, alterTable};

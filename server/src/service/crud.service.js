@@ -2,9 +2,22 @@ const runQuery = require("../database/runQuery");
 const { Queries } = require("../database/Queries");
 
 
-async function findAll(tableName) {
+async function findAll({tableName, ReftableName ,SELECT,myTableKey, refTableKey}) {
+
+    if(!ReftableName){
+        let query = Queries.command_findAll
+        .replace("<table_name>", tableName);
+        return runQuery(query);
+    }
+
+    let query = Queries.command_findAll_InnerJoin
+    .replace("<key_value>", SELECT || "*")
+    .replace("<mytable_name>", tableName)
+    .replace("<ref_table_name>", ReftableName)
+    .replace("<mytable_name_dot_key>", myTableKey)
+    .replace("<ref_table_name_dot_key>", refTableKey);
+    return runQuery(query);
    
-   return runQuery(Queries.command_findAll.replace("<table_name>", tableName));
 }
 
 

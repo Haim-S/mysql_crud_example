@@ -5,7 +5,7 @@ const {Weapons} = require("../models/Weapons");
 const {Heroes} = require("../models/Heroes");
 const {Hospital} = require("../models/Hospital");
 // const {Schema} = require("../models/Test");
-const {createTable, createProcedure} = require("../service/model.service");
+const {createTable, createProcedure, alterTable} = require("../service/model.service");
 
 
 const connection = mysql.createConnection({
@@ -17,6 +17,7 @@ const connection = mysql.createConnection({
 
 const getDB = () => connection;
 
+
 // createTable(getDB, "test", Schema);
 
 createTable(getDB, "weapons", Weapons);
@@ -24,6 +25,7 @@ createTable(getDB, "heroes", Heroes);
 createTable(getDB, "hospital", Hospital);
 
 createProcedure(connection);
+alterTable(connection);
 
 
 
